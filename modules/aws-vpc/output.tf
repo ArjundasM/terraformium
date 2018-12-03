@@ -16,3 +16,4 @@ output "aws_security_group" {
 
 output "default_tags" {
 	value = "${var.default_tags}"
+}
