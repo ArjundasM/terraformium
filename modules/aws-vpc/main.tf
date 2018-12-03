@@ -97,12 +97,6 @@ resource "aws_security_group" "kubernetes" {
 	vpc_id = "${aws_vpc.k8s-vpc.id}"
 	tags = "${merge(var.default_tags, map(
 	"Name", "k8s-${var.aws_cluster_name}-securitygroup"))}"
-	ingress {
-                from_port = 0
-                to_port = 0
-                protocol = "-1"
-                cidr_blocks = ["219.91.145.2/32"]
-        }
          ingress {
                 from_port = 0
                 to_port = 0
@@ -117,16 +111,6 @@ resource "aws_security_group" "kubernetes" {
                 protocol = "-1"
                 cidr_blocks= ["${var.aws_vpc_cidr_block}"]
         }
-
-
-        ingress {
-                from_port = 0
-                to_port = 0
-                protocol = "-1"
-                cidr_blocks = ["49.204.92.182/32"]
-        }
-
-
         egress {
                 from_port = 0
                 to_port = 0
