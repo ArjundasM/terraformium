@@ -28,8 +28,7 @@ resource "aws_subnet" "k8s-subnet-public" {
 	availability_zone = "${element(var.aws_avail_zones, count.index)}"
 	cidr_block = "${element(var.aws_cidr_subnets_public, count.index)}"
 	tags = "${merge(var.default_tags, map(
-	"Name", "K8s-${var.aws_cluster_name}-${element(var.aws_avail_zones, count.index)}"
-	))}"
+	"Name", "K8s-${var.aws_cluster_name}-${element(var.aws_avail_zones, count.index)}-public"))}"
 }
 
 #Creating NAT gateway
@@ -61,7 +60,7 @@ resource "aws_route_table" "k8s-public" {
 		gateway_id = "${aws_internet_gateway.k8s-gateway.id}"
 	}
 	tags = "${merge(var.default_tags, map(
-	"Name", "K8s-${var.aws_cluster_name}-route-public"))}"
+	"Name", "K8s-${var.aws_cluster_name}-${element(var.aws_avail_zones, count.index)}-route-public"))}"
 }
 
 
@@ -74,7 +73,7 @@ resource "aws_route_table" "k8s-private" {
 		nat_gateway_id = "${element(aws_nat_gateway.k8s-nat-gateway.*.id, count.index)}"
 	}
 	tags = "${merge(var.default_tags, map(
-	"Name", "K8s-${var.aws_cluster_name}-route-private-${count.index}"))}"
+	"Name", "K8s-${var.aws_cluster_name}-${element(var.aws_avail_zones, count.index)}-route-private"))}"
 }
 
 #Creating route table association for public subnet
