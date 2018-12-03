@@ -1,1 +1,1 @@
-aws_cluster_name = "devtest"
+aws_cluster_name = "dev"
